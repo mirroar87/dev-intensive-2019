@@ -40,7 +40,7 @@ data class User (
         private var lastVisit : Date? = null,
         private var isOnline : Boolean = false
     ) {
-        fun id(id:Int) = apply { this.id = "$id" }
+        fun id(id:String) = apply { this.id = id }
 
         fun firstName(firstName: String?) = apply { this.firstName = firstName }
 
