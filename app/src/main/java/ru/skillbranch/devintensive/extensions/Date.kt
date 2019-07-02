@@ -47,7 +47,7 @@ fun Date.humanizeDiff(date:Date = Date()): String {
         diff <= 22* HOUR -> "${hourPlur(diff/ HOUR)} назад"
         diff <= 26* HOUR -> "день назад"
         diff <= 360* DAY -> "${dayPlur(diff/ DAY)} назад"
-        else -> "больше года назад"
+        else -> "более года назад"
     }
 }
 
