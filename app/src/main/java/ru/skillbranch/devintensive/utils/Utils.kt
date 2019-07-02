@@ -33,12 +33,14 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val initialsFirstName: Char? = firstName?.firstOrNull()?.toUpperCase()
-        val initialsLastName: Char? = lastName?.firstOrNull()?.toUpperCase()
+        val initialsFirstName: Char? = firstName?.trim()?.firstOrNull()?.toUpperCase()
+        val initialsLastName: Char? = lastName?.trim()?.firstOrNull()?.toUpperCase()
 
-        var initials:String? = null
-        if (initialsFirstName!=null) initials = initialsFirstName.toString()
-        if (initialsLastName!=null) initials += initialsLastName.toString()
-        return initials
+        return when {
+            initialsFirstName == null && initialsLastName == null -> null
+            initialsFirstName != null && initialsLastName == null -> initialsFirstName.toString()
+            initialsFirstName == null && initialsLastName != null -> initialsLastName.toString()
+            else -> initialsFirstName.toString() + initialsLastName.toString()
+        }
     }
 }
