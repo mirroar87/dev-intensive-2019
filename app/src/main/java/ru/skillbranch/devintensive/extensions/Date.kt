@@ -59,7 +59,7 @@ enum class TimeUnits{
             return when {
                 diff%100 in 11..19 -> "$diff секунд"
                 diff%10 in 2..4 -> "$diff секунды"
-                diff%10 == 1L -> "$diff секунда"
+                diff%10 == 1L -> "$diff секунду"
                 else -> "$diff секунд"
             }
         }
