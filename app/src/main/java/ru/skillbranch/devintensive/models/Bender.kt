@@ -24,7 +24,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             } else {
                 status = status.nextStatus()
-                "Это не правильный ответ!\n${question.question}" to status.color
+                "Это не правильный ответ\n${question.question}" to status.color
             }
         }
         return "$string\n${question.question}" to status.color
@@ -32,15 +32,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     enum class Status(val color : Triple<Int, Int, Int>){
-        
+
         NORMAL(Triple(255, 255, 255)),
         WARNING(Triple(255, 120, 0)),
         DANGER(Triple(255, 60, 60)),
         CRITICAL(Triple(255, 255, 0));
 
         fun nextStatus():Status{
-
-
             return if(this.ordinal < values().lastIndex){
                 values()[this.ordinal +1]
             } else {
