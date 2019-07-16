@@ -14,17 +14,17 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer:String) : Pair<String, Triple<Int, Int, Int>> {
-        val string = question.validateAnswer(answer) ?: if (question.answer.contains(answer.toLowerCase())) {
+        val string = question.validateAnswer(answer) ?: return if (question.answer.contains(answer.toLowerCase())) {
             question = question.nextQuestion()
-            "Отлично - ты справился\n${question.question}"
+            "Отлично - ты справился\n${question.question}" to status.color
         } else {
             if (status == Status.CRITICAL) {
                 this.question = Question.NAME
                 this.status = Status.NORMAL
-                "Это неправильный ответ. Давай все по новой\n${question.question}"
+                "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             } else {
                 status = status.nextStatus()
-                "Это неправильный ответ\n${question.question}"
+                "Это неправильный ответ\n${question.question}" to status.color
             }
         }
         return "$string\n${question.question}" to status.color
