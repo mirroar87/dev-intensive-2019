@@ -32,6 +32,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     enum class Status(val color : Triple<Int, Int, Int>){
+        
         NORMAL(Triple(255, 255, 255)),
         WARNING(Triple(255, 120, 0)),
         DANGER(Triple(255, 60, 60)),
