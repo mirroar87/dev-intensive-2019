@@ -14,17 +14,17 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer:String) : Pair<String, Triple<Int, Int, Int>> {
-        val string = question.validateAnswer(answer) ?: return if (question.answer.contains(answer.toLowerCase())) {
+        val string = question.validateAnswer(answer) ?: if (question.answer.contains(answer.toLowerCase())) {
             question = question.nextQuestion()
-            "Отлично - ты справился\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}"
         } else {
             if (status == Status.CRITICAL) {
                 this.question = Question.NAME
                 this.status = Status.NORMAL
-                "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                "Это неправильный ответ. Давай все по новой\n${question.question}"
             } else {
                 status = status.nextStatus()
-                "Это неправильный ответ\n${question.question}" to status.color
+                "Это неправильный ответ\n${question.question}"
             }
         }
         return "$string\n${question.question}" to status.color
@@ -66,7 +66,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     null
                 }
             }
-
             override fun nextQuestion(): Question = MATERIAL
         },
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")) {
@@ -77,7 +76,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     null
                 }
             }
-
             override fun nextQuestion(): Question = BDAY
         },
         BDAY("Когда меня создали?", listOf("2993")) {
@@ -88,7 +86,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     null
                 }
             }
-
             override fun nextQuestion(): Question = SERIAL
         },
         SERIAL("Мой серийный номер?", listOf("2716057")) {
@@ -99,14 +96,12 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     null
                 }
             }
-
             override fun nextQuestion(): Question = IDLE
         },
         IDLE("На этом все, вопросов больше нет", listOf()) {
             override fun validateAnswer(string: String): String? {
                 return "Отлично - ты справился"
             }
-
             override fun nextQuestion(): Question = IDLE
         };
 
