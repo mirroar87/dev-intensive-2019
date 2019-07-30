@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
@@ -83,16 +84,18 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-//    fun setInitialsImage(firstName: String, lastName: String) {
-//        var initials = ""
-//        if (firstName.isNotEmpty()) {
-//            initials = firstName[0].toString()
-//        }
-//        if (lastName.isNotEmpty()) {
-//            initials = "$initials${lastName[0]}"
-//        }
+    fun setInitialsImage(firstName: String, lastName: String) {
+        val initialsSB = StringBuilder()
+        if (firstName.isNotEmpty()) {
+            initialsSB.append(firstName[0].toUpperCase())
+        }
+        if (lastName.isNotEmpty()) {
+            initialsSB.append(lastName[0].toUpperCase())
+        }
+
+
 //        val drawable : Drawable
 //        drawable.
-//    }
+    }
 }
 

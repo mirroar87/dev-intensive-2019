@@ -59,9 +59,9 @@ class ProfileActivity : AppCompatActivity() {
             for ((k,v) in viewFields) {
                 v.text = it[k].toString()
             }
-//            if (profile.firstName.isNotEmpty() || profile.lastName.isNotEmpty()) {
-//                iv_avatar.setInitialsImage(profile.firstName, profile.lastName)
-//            }
+        }
+        if (profile.firstName.isNotEmpty() || profile.lastName.isNotEmpty()) {
+            iv_avatar.setInitialsImage(profile.firstName, profile.lastName)
         }
     }
 
@@ -126,10 +126,10 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfileInfo() {
         Profile(
-            firstName = et_first_name.text.toString(),
-            lastName = et_last_name.text.toString(),
+            firstName = et_first_name.text.toString().trim(),
+            lastName = et_last_name.text.toString().trim(),
             about = et_about.text.toString(),
-            repository = et_repository.text.toString()
+            repository = et_repository.text.toString().trim()
         ).apply {
             viewModel.saveProfileData(this)
         }

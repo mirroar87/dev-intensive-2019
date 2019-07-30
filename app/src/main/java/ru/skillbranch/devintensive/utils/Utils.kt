@@ -21,7 +21,7 @@ object Utils {
 
     @SuppressLint("DefaultLocale")
     fun transliteration(payload: String, divider:String = " "): String {
-        var translit = payload
+        var translit = payload.trim()
         for ((k, v) in transliterationChars) {
             translit = translit.replace(k, v)
             translit = translit.replace(k.toUpperCase(), v.toUpperCase())
