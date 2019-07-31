@@ -88,8 +88,6 @@ class ProfileActivity : AppCompatActivity() {
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
         }
-
-
     }
 
     private fun showCurrentMode(isEdit: Boolean) {

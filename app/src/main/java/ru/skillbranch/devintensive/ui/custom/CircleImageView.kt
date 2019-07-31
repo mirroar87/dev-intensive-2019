@@ -2,12 +2,12 @@ package ru.skillbranch.devintensive.ui.custom
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
+import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import ru.skillbranch.devintensive.R
 
@@ -57,7 +57,7 @@ class CircleImageView @JvmOverloads constructor(
         val paint = Paint().apply {
             color = cv_borderColor
             style = Paint.Style.STROKE
-            strokeWidth = cv_borderWidth.toFloat()
+            strokeWidth = cv_borderWidth
         }
 
         canvas.drawCircle(centre, centre, centre-cv_borderWidth/2, paint)
@@ -74,7 +74,11 @@ class CircleImageView @JvmOverloads constructor(
     fun getBorderColor():Int = cv_borderColor
 
     fun setBorderColor(hex:String) {
-        cv_borderColor = Color.parseColor(hex)
+        cv_borderColor = if (hex[0].toString() != "#") {
+            Color.parseColor("#$hex")
+        } else {
+            Color.parseColor(hex)
+        }
         invalidate()
     }
 
@@ -93,9 +97,25 @@ class CircleImageView @JvmOverloads constructor(
             initialsSB.append(lastName[0].toUpperCase())
         }
 
+        val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
 
-//        val drawable : Drawable
-//        drawable.
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+
+        val textScaleValue = bitmap.width/200f
+
+        val paintText = Paint().apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = 80*textScaleValue
+        }
+
+        canvas.drawColor(value.data)
+        canvas.drawText(initialsSB.toString(), bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
+
+        setImageBitmap(bitmap)
+
     }
 }
 
