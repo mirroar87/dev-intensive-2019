@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.core.graphics.createBitmap
-import androidx.core.graphics.drawable.toBitmap
 import ru.skillbranch.devintensive.R
 
 class CircleImageView @JvmOverloads constructor(
@@ -24,7 +23,6 @@ class CircleImageView @JvmOverloads constructor(
 
     private var cv_borderColor = DFAULT_CV_BORDERCOLOR
     private var cv_borderWidth = DEFAULT_CV_BORDERWIDTH
-//    private lateinit var avatar_img : Bitmap
 
     init {
         if (attrs != null) {
@@ -32,10 +30,6 @@ class CircleImageView @JvmOverloads constructor(
             cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DFAULT_CV_BORDERCOLOR)
             cv_borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH)
             a.recycle()
-
-//            scaleType = ScaleType.CENTER_CROP
-//            avatar_img = drawable.toBitmap()
-
         }
     }
 
@@ -57,10 +51,10 @@ class CircleImageView @JvmOverloads constructor(
         val paint = Paint().apply {
             color = cv_borderColor
             style = Paint.Style.STROKE
-            strokeWidth = cv_borderWidth * context.applicationContext.resources.displayMetrics.density
+            strokeWidth = cv_borderWidth * resources.displayMetrics.density
         }
 
-        canvas.drawCircle(centre, centre, centre-(cv_borderWidth*context.applicationContext.resources.displayMetrics.density/2), paint)
+        canvas.drawCircle(centre, centre, centre-(cv_borderWidth*resources.displayMetrics.density/2), paint)
     }
 
     @Dimension
@@ -88,7 +82,6 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-    
 
     fun setInitialsImage(firstName: String, lastName: String) {
         val initialsSB = StringBuilder()
