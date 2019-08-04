@@ -23,18 +23,18 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     private var cv_borderColor = DFAULT_CV_BORDERCOLOR
-    private var cv_borderWidth = DEFAULT_CV_BORDERWIDTH * resources.displayMetrics.density
-    private lateinit var avatar_img : Bitmap
+    private var cv_borderWidth = DEFAULT_CV_BORDERWIDTH
+//    private lateinit var avatar_img : Bitmap
 
     init {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
             cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DFAULT_CV_BORDERCOLOR)
-            cv_borderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, cv_borderWidth)
+            cv_borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH)
             a.recycle()
 
-            scaleType = ScaleType.CENTER_CROP
-            avatar_img = drawable.toBitmap()
+//            scaleType = ScaleType.CENTER_CROP
+//            avatar_img = drawable.toBitmap()
 
         }
     }
@@ -57,29 +57,29 @@ class CircleImageView @JvmOverloads constructor(
         val paint = Paint().apply {
             color = cv_borderColor
             style = Paint.Style.STROKE
-            strokeWidth = cv_borderWidth
+            strokeWidth = cv_borderWidth * context.applicationContext.resources.displayMetrics.density
         }
 
-        canvas.drawCircle(centre, centre, centre-cv_borderWidth/2, paint)
+        canvas.drawCircle(centre, centre, centre-(cv_borderWidth*context.applicationContext.resources.displayMetrics.density/2), paint)
     }
 
     @Dimension
-    fun getBorderWidth():Int = (cv_borderWidth/resources.displayMetrics.density).toInt()
+    fun getBorderWidth():Int = cv_borderWidth
 
     fun setBorderWidth(@Dimension dp:Int) {
-        cv_borderWidth = dp * resources.displayMetrics.density
+        if (cv_borderWidth == dp) return
+        cv_borderWidth = dp
         invalidate()
     }
 
     fun getBorderColor():Int = cv_borderColor
 
-    fun setBorderColor(hex:String) {
+    fun setBorderColor(hex:String){
         cv_borderColor = if (hex[0].toString() != "#") {
             Color.parseColor("#$hex")
         } else {
             Color.parseColor(hex)
         }
-        invalidate()
     }
 
     fun setBorderColor(@ColorRes colorId: Int){
@@ -87,6 +87,8 @@ class CircleImageView @JvmOverloads constructor(
         else cv_borderColor = resources.getColor(colorId, context.theme)
         invalidate()
     }
+
+    
 
     fun setInitialsImage(firstName: String, lastName: String) {
         val initialsSB = StringBuilder()

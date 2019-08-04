@@ -62,6 +62,8 @@ class ProfileActivity : AppCompatActivity() {
         }
         if (profile.firstName.isNotEmpty() || profile.lastName.isNotEmpty()) {
             iv_avatar.setInitialsImage(profile.firstName, profile.lastName)
+        } else {
+            iv_avatar.setImageDrawable(resources.getDrawable(R.drawable.avatar_default, theme))
         }
     }
 
