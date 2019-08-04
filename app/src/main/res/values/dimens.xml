@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="cv_borderWidth">2dp</dimen>
 
     <!-- font sizes -->
     <dimen name="font_large_20">18sp</dimen>
