@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
@@ -19,7 +20,7 @@ class CircleImageView @JvmOverloads constructor(
 
     companion object {
         private const val DFAULT_CV_BORDERCOLOR = Color.WHITE
-        private const val DEFAULT_CV_BORDERWIDTH = 2
+        private const val DEFAULT_CV_BORDERWIDTH = 2f
     }
 
     private var cv_borderColor = DFAULT_CV_BORDERCOLOR
@@ -29,7 +30,7 @@ class CircleImageView @JvmOverloads constructor(
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
             cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DFAULT_CV_BORDERCOLOR)
-            cv_borderWidth = a.getDimensionPixelSize (R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH)
+            cv_borderWidth = a.getDimension (R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH*resources.displayMetrics.density)
             a.recycle()
         }
     }
@@ -52,18 +53,18 @@ class CircleImageView @JvmOverloads constructor(
         val paint = Paint().apply {
             color = cv_borderColor
             style = Paint.Style.STROKE
-            strokeWidth = cv_borderWidth * resources.displayMetrics.density
+            strokeWidth = cv_borderWidth
         }
 
-        canvas.drawCircle(centre, centre, centre-(cv_borderWidth*resources.displayMetrics.density/2), paint)
+        canvas.drawCircle(centre, centre, centre-(cv_borderWidth/2), paint)
     }
 
     @Dimension(unit = DP)
-    fun getBorderWidth():Int = cv_borderWidth
+    fun getBorderWidth():Int = (cv_borderWidth/resources.displayMetrics.density).toInt()
 
     fun setBorderWidth(@Dimension(unit = DP) dp:Int) {
-        if (cv_borderWidth == dp) return
-        cv_borderWidth = dp
+        if (cv_borderWidth == dp.toFloat()) return
+        cv_borderWidth = dp.toFloat()
         invalidate()
     }
 

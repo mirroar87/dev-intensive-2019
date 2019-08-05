@@ -115,8 +115,6 @@ class ProfileActivity : AppCompatActivity() {
                 null
             }
             val icon = if(isEdit) {
-                Log.d("M_ProfileActivity","${iv_avatar.getBorderWidth()}")
-
                 resources.getDrawable(R.drawable.ic_save_black_24dp, theme)
             } else {
                 resources.getDrawable(R.drawable.ic_edit_black_24dp, theme)
