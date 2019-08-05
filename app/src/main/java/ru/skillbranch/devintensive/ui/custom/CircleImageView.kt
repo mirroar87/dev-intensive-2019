@@ -8,7 +8,9 @@ import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.annotation.Dimension.DP
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.createBitmap
+import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
 
 class CircleImageView @JvmOverloads constructor(
@@ -68,7 +70,6 @@ class CircleImageView @JvmOverloads constructor(
         invalidate()
     }
 
-//    @ColorRes
     fun getBorderColor():Int = cv_borderColor
 
     fun setBorderColor(hex:String){
@@ -81,8 +82,11 @@ class CircleImageView @JvmOverloads constructor(
     }
 
     fun setBorderColor(@ColorRes colorId: Int){
-        if (cv_borderColor != resources.getColor(colorId, context.theme)) return
-        else cv_borderColor = resources.getColor(colorId, context.theme)
+        cv_borderColor = ContextCompat.getColor(App.applicationContext(), colorId)
+
+
+//        if (cv_borderColor != resources.getColor(colorId, context.theme)) return
+//        else cv_borderColor = resources.getColor(colorId, context.theme)
         invalidate()
     }
 
