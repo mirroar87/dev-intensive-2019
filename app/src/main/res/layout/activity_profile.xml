@@ -24,7 +24,7 @@
         android:layout_width="@dimen/avatar_round_size"
         android:layout_height="@dimen/avatar_round_size"
         android:src="@drawable/avatar_default"
-
+        app:cv_borderWidth="2dp"
         app:cv_borderColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/tv_nick_name"
         app:layout_constraintEnd_toEndOf="parent"
