@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:background="@drawable/btn_round_bg"
         android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1.7777"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.annotation.Dimension.DP
 import androidx.core.graphics.createBitmap
 import ru.skillbranch.devintensive.R
 
@@ -28,7 +29,7 @@ class CircleImageView @JvmOverloads constructor(
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
             cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DFAULT_CV_BORDERCOLOR)
-            cv_borderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH)
+            cv_borderWidth = a.getDimensionPixelSize (R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH)
             a.recycle()
         }
     }
@@ -57,10 +58,10 @@ class CircleImageView @JvmOverloads constructor(
         canvas.drawCircle(centre, centre, centre-(cv_borderWidth*resources.displayMetrics.density/2), paint)
     }
 
-    @Dimension
+    @Dimension(unit = DP)
     fun getBorderWidth():Int = cv_borderWidth
 
-    fun setBorderWidth(@Dimension dp:Int) {
+    fun setBorderWidth(@Dimension(unit = DP) dp:Int) {
         if (cv_borderWidth == dp) return
         cv_borderWidth = dp
         invalidate()
