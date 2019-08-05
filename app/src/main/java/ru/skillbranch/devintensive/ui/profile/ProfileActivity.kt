@@ -50,6 +50,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateTheme(mode: Int) {
+        Log.d("M_ProfileActivity","updateTheme")
         delegate.setLocalNightMode(mode)
     }
 
@@ -59,11 +60,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
-        if (profile.firstName.isNotEmpty() || profile.lastName.isNotEmpty()) {
-            iv_avatar.setInitialsImage(profile.firstName, profile.lastName)
-        } else {
-            iv_avatar.setImageDrawable(resources.getDrawable(R.drawable.avatar_default, theme))
-        }
+        iv_avatar.setInitialsImage(profile.firstName, profile.lastName)
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -114,8 +111,6 @@ class ProfileActivity : AppCompatActivity() {
                 null
             }
             val icon = if(isEdit) {
-                Log.d("M_ProfileActivity","${iv_avatar.getBorderWidth()}")
-
                 resources.getDrawable(R.drawable.ic_save_black_24dp, theme)
             } else {
                 resources.getDrawable(R.drawable.ic_edit_black_24dp, theme)

@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
@@ -19,19 +18,18 @@ class CircleImageView @JvmOverloads constructor(
 ) : ImageView(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val DFAULT_CV_BORDERCOLOR = Color.WHITE
+        private const val DEFAULT_CV_BORDERCOLOR = Color.WHITE
         private const val DEFAULT_CV_BORDERWIDTH = 2f
     }
 
-    private var cv_borderColor = DFAULT_CV_BORDERCOLOR
+    private var cv_borderColor = DEFAULT_CV_BORDERCOLOR
     private var cv_borderWidth = DEFAULT_CV_BORDERWIDTH
 
     init {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
-            cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DFAULT_CV_BORDERCOLOR)
+            cv_borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_CV_BORDERCOLOR)
             cv_borderWidth = a.getDimension (R.styleable.CircleImageView_cv_borderWidth, DEFAULT_CV_BORDERWIDTH*resources.displayMetrics.density)
-
 
             a.recycle()
         }
@@ -65,11 +63,12 @@ class CircleImageView @JvmOverloads constructor(
     fun getBorderWidth():Int = (cv_borderWidth/resources.displayMetrics.density).toInt()
 
     fun setBorderWidth(@Dimension(unit = DP) dp:Int) {
-        if (cv_borderWidth == dp.toFloat()) return
-        cv_borderWidth = dp.toFloat()
+        if (cv_borderWidth == dp*resources.displayMetrics.density) return
+        cv_borderWidth = dp*resources.displayMetrics.density
         invalidate()
     }
 
+//    @ColorRes
     fun getBorderColor():Int = cv_borderColor
 
     fun setBorderColor(hex:String){
@@ -78,6 +77,7 @@ class CircleImageView @JvmOverloads constructor(
         } else {
             Color.parseColor(hex)
         }
+        invalidate()
     }
 
     fun setBorderColor(@ColorRes colorId: Int){
@@ -88,33 +88,37 @@ class CircleImageView @JvmOverloads constructor(
 
 
     fun setInitialsImage(firstName: String, lastName: String) {
-        val initialsSB = StringBuilder()
-        if (firstName.isNotEmpty()) {
-            initialsSB.append(firstName[0].toUpperCase())
+        if (firstName.isEmpty() && lastName.isEmpty()) {
+            setImageDrawable(resources.getDrawable(R.drawable.avatar_default, context.theme))
+        } else {
+            val initialsSB = StringBuilder()
+            if (firstName.isNotEmpty()) {
+                initialsSB.append(firstName[0].toUpperCase())
+            }
+            if (lastName.isNotEmpty()) {
+                initialsSB.append(lastName[0].toUpperCase())
+            }
+
+            val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+
+            val value = TypedValue()
+            context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+
+            val textScaleValue = bitmap.width/200f
+
+            val paintText = Paint().apply {
+                color = Color.WHITE
+                textAlign = Paint.Align.CENTER
+                textSize = 80*textScaleValue
+            }
+
+            canvas.drawColor(value.data)
+            canvas.drawText(initialsSB.toString(), bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
+
+            setImageBitmap(bitmap)
         }
-        if (lastName.isNotEmpty()) {
-            initialsSB.append(lastName[0].toUpperCase())
-        }
-
-        val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-
-        val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
-
-        val textScaleValue = bitmap.width/200f
-
-        val paintText = Paint().apply {
-            color = Color.WHITE
-            textAlign = Paint.Align.CENTER
-            textSize = 80*textScaleValue
-        }
-
-        canvas.drawColor(value.data)
-        canvas.drawText(initialsSB.toString(), bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
-
-        setImageBitmap(bitmap)
-
+        invalidate()
     }
 }
 
