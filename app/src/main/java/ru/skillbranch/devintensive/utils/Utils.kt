@@ -43,4 +43,25 @@ object Utils {
             else -> initialsFirstName.toString() + initialsLastName.toString()
         }
     }
+
+    fun validateURL(url: CharSequence?): Boolean {
+        val wrongNames = listOf(
+            "enterprise",
+            "features",
+            "topics",
+            "collections",
+            "trending",
+            "events",
+            "marketplace",
+            "pricing",
+            "nonprofit",
+            "customer-stories",
+            "security",
+            "login",
+            "join"
+        ).joinToString("|")
+
+        val pattern = Regex("""^(https://)?(www\.)?github\.com/(?!($wrongNames)/?$)[\-\w]+/?$""")
+        return url.isNullOrBlank() || pattern.matches(url)
+    }
 }

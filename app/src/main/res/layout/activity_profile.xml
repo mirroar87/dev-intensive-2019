@@ -162,7 +162,7 @@
         app:srcCompat="@drawable/ic_avatar" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/wr_first_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -181,12 +181,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/wr_last_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintEnd_toEndOf="@+id/wr_first_name"
+        app:layout_constraintStart_toStartOf="@+id/wr_first_name"
+        app:layout_constraintTop_toBottomOf="@+id/wr_first_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_last_name"
@@ -206,7 +206,7 @@
         android:background="?attr/colorDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/wr_last_name" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -264,6 +264,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toStartOf="@+id/ic_eye"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5">

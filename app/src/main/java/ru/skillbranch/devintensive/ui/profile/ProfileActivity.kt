@@ -13,7 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.afterTextChanged
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity() {
@@ -85,6 +87,12 @@ class ProfileActivity : AppCompatActivity() {
 
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
+        }
+
+
+        et_repository.afterTextChanged{
+            wr_repository.isErrorEnabled = !Utils.validateURL(et_repository.text.toString())
+            wr_repository.error = if (!Utils.validateURL(et_repository.text.toString())) "Невалидный адрес репозитория" else ""
         }
     }
 
