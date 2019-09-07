@@ -13,7 +13,7 @@ import androidx.core.graphics.createBitmap
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
 
-class CircleImageView @JvmOverloads constructor(
+open class CircleImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -93,15 +93,17 @@ class CircleImageView @JvmOverloads constructor(
 
     fun setInitialsImage(firstName: String, lastName: String) {
         if (firstName.isEmpty() && lastName.isEmpty()) {
-            setImageDrawable(resources.getDrawable(R.drawable.avatar_default, context.theme))
-        } else {
-            val initialsSB = StringBuilder()
-            if (firstName.isNotEmpty()) {
-                initialsSB.append(firstName[0].toUpperCase())
-            }
-            if (lastName.isNotEmpty()) {
-                initialsSB.append(lastName[0].toUpperCase())
-            }
+//            setImageDrawable(resources.getDrawable(R.drawable.avatar_default, context.theme))
+//        } else {
+//            val initialsSB = StringBuilder()
+//            if (firstName.isNotEmpty()) {
+//                initialsSB.append(firstName[0].toUpperCase())
+//            }
+//            if (lastName.isNotEmpty()) {
+//                initialsSB.append(lastName[0].toUpperCase())
+//            }
+
+            val initials = "${firstName[0]?:""} ${lastName[0]?:""}"
 
             val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
@@ -118,10 +120,44 @@ class CircleImageView @JvmOverloads constructor(
             }
 
             canvas.drawColor(value.data)
-            canvas.drawText(initialsSB.toString(), bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
+            canvas.drawText(initials, bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
 
             setImageBitmap(bitmap)
         }
+        invalidate()
+    }
+
+    fun setInitialsImage(initials: String) {
+//        if (firstName.isEmpty() && lastName.isEmpty()) {
+//            setImageDrawable(resources.getDrawable(R.drawable.avatar_default, context.theme))
+//        } else {
+//            val initialsSB = StringBuilder()
+//            if (firstName.isNotEmpty()) {
+//                initialsSB.append(firstName[0].toUpperCase())
+//            }
+//            if (lastName.isNotEmpty()) {
+//                initialsSB.append(lastName[0].toUpperCase())
+//            }
+
+            val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+
+            val value = TypedValue()
+            context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+
+            val textScaleValue = bitmap.width/200f
+
+            val paintText = Paint().apply {
+                color = Color.WHITE
+                textAlign = Paint.Align.CENTER
+                textSize = 80*textScaleValue
+            }
+
+            canvas.drawColor(value.data)
+            canvas.drawText(initials, bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
+
+            setImageBitmap(bitmap)
+//        }
         invalidate()
     }
 }

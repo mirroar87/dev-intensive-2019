@@ -92,7 +92,7 @@ class ProfileActivity : AppCompatActivity() {
 
         et_repository.afterTextChanged{
             wr_repository.isErrorEnabled = !Utils.validateURL(et_repository.text.toString())
-            wr_repository.error = if (!Utils.validateURL(et_repository.text.toString())) "Невалидный адрес репозитория" else ""
+            wr_repository.error = if (!Utils.validateURL(et_repository.text.toString())) resources.getString(R.string.repository_validation_error) else ""
         }
     }
 
