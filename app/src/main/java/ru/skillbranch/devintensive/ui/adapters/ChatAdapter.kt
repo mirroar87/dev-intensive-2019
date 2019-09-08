@@ -12,7 +12,6 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_chat_archive.*
 import kotlinx.android.synthetic.main.item_chat_group.*
 import kotlinx.android.synthetic.main.item_chat_single.*
-import kotlinx.android.synthetic.main.item_chat_single.tv_title_archive
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
