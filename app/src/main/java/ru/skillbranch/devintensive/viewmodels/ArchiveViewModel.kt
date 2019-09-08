@@ -1,12 +1,17 @@
 package ru.skillbranch.devintensive.viewmodels
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.repositories.ChatRepository
+import ru.skillbranch.devintensive.repositories.PreferencesRepository
 
 class ArchiveViewModel: ViewModel() {
+    private val appTheme = MutableLiveData<Int>()
+    private val repository : PreferencesRepository = PreferencesRepository
     private val chatRepository = ChatRepository
     private val chats = Transformations.map(chatRepository.loadChats()) { chats ->
         return@map chats
@@ -29,5 +34,14 @@ class ArchiveViewModel: ViewModel() {
         val chat = chatRepository.find(chatid)
         chat ?: return
         chatRepository.update(chat.copy(isArchived = false))
+    }
+
+    fun switchTheme() {
+        if (appTheme.value == AppCompatDelegate.MODE_NIGHT_YES) {
+            appTheme.value = AppCompatDelegate.MODE_NIGHT_NO
+        } else {
+            appTheme.value = AppCompatDelegate.MODE_NIGHT_YES
+        }
+        repository.saveAppTheme(appTheme.value!!)
     }
 }

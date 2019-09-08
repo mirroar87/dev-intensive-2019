@@ -21,7 +21,7 @@
         android:layout_toLeftOf="@id/tv_title_archive"/>
 
     <TextView
-        android:id="@+id/tv_title_archive"
+        android:id="@+id/tv_title_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="chat title"
