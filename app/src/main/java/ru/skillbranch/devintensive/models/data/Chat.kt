@@ -5,6 +5,7 @@ import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
+import ru.skillbranch.devintensive.repositories.ChatRepository
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -25,18 +26,17 @@ data class Chat(
         return messages.lastOrNull()?.date
     }
 
-
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String, String?> = when(val lastMessage = messages.lastOrNull()){
         is ImageMessage -> "${lastMessage.from.firstName} - отправил фото" to lastMessage.from.firstName
         is TextMessage -> lastMessage.text to lastMessage.from.firstName
-        else -> "" to null
+        else -> "Сообщений еще нет" to null
     }
 
     private fun isSingle(): Boolean = members.size == 1
 
     fun toChatItem(): ChatItem {
-        return if (isSingle()) {
+        return if(isSingle()&& !isArchived) {
             val user = members.first()
             ChatItem(
                 id,
@@ -48,7 +48,7 @@ data class Chat(
                 lastMessageDate()?.shortFormat(),
                 user.isOnline
             )
-        } else {
+        }else if (!isArchived){
             ChatItem(
                 id,
                 null,
@@ -61,7 +61,35 @@ data class Chat(
                 ChatType.GROUP,
                 lastMessageShort().second
             )
+        }else{
+            val chatsLast =  ChatRepository.loadChats().value!!.filter { it.isArchived }.sortedBy { it.lastMessageDate() }
+            ChatItem(
+                "-1",
+                null,
+                "",
+                "Архив чатов",
+                chatsLast.last().lastMessageShort().first,
+                chatsLast.sumBy { it.unreadableMessageCount()},
+                chatsLast.last().lastMessageDate()?.shortFormat(),
+                false,
+                ChatType.ARCHIVE,
+                "@${chatsLast.last().lastMessageShort().second}"
+            )
         }
+    }
+
+    fun toChatItemFromArchive(): ChatItem {
+        val user = members.first()
+        return ChatItem(
+            id,
+            user.avatar,
+            Utils.toInitials(user.firstName, user.lastName) ?: "??",
+            "${user.firstName ?: ""} ${user.lastName ?: ""}",
+            lastMessageShort().first,
+            unreadableMessageCount(),
+            lastMessageDate()?.shortFormat(),
+            user.isOnline
+        )
     }
 }
 

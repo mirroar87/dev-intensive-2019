@@ -13,7 +13,7 @@ object GroupRepository {
     fun createChat(items: List<UserItem>) {
         val ids = items.map { it.id }
         val users = CasheManager.findUsersByIds(ids)
-        val title = users.map { it.firstName }.joinToString { ", " }
+        val title = users.map { it.firstName }.joinToString()
         val chat = Chat(CasheManager.nextChatId(), title, users)
         CasheManager.insertChat(chat)
     }
