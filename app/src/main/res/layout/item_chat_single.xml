@@ -18,7 +18,7 @@
         android:layout_height="12dp"
         android:background="@drawable/bg_indicator"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/tv_title_archive"/>
+        android:layout_toLeftOf="@id/tv_title_single"/>
 
     <TextView
         android:id="@+id/tv_title_single"
@@ -44,7 +44,7 @@
         android:layout_toLeftOf="@id/tv_counter_single"
         android:layout_marginLeft="@dimen/spacing_normal_16"
         android:layout_marginRight="@dimen/spacing_normal_16"
-        android:layout_below="@id/tv_title_archive"/>
+        android:layout_below="@id/tv_title_single"/>
 
     <TextView
         android:id="@+id/tv_date_single"
