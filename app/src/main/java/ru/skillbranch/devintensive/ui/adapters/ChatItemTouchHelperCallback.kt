@@ -5,10 +5,12 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
+import ru.skillbranch.devintensive.repositories.PreferencesRepository
 
 class ChatItemTouchHelperCallback(
     val adapter: ChatAdapter,
@@ -93,7 +95,12 @@ class ChatItemTouchHelperCallback(
             bottom = itemView.bottom.toFloat()
         }
         with(bgPaint) {
-            color = itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
+            color = if (PreferencesRepository.getAppTheme() == AppCompatDelegate.MODE_NIGHT_NO) {
+                itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
+            } else {
+                itemView.resources.getColor(R.color.color_accent_night, itemView.context.theme)
+            }
+
         }
 
         canvas.drawRect(bgRect, bgPaint)

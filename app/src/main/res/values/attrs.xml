@@ -17,5 +17,13 @@
     <attr name="colorAccentedSurface" format="reference"/>
     <attr name="colorDivider" format="reference"/>
     <attr name="colorIcon" format="reference"/>
-
+    <attr name="colorCounter" format="reference"/>
+    <attr name="colorIndicator" format="reference"/>
+    <attr name="colorItemBackground" format="reference"/>
+    <attr name="colorUsersBackground" format="reference"/>
+    <attr name="colorPrimaryText" format="reference"/>
+    <attr name="colorSecondaryText" format="reference"/>
+    <attr name="colorArchiveIcon" format="reference"/>
+    <attr name="colorDoneIcon" format="reference"/>
+    <attr name="colorSnackBarBackground" format="reference"/>
 </resources>

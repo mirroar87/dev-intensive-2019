@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="?attr/colorUsersBackground">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
@@ -36,6 +37,7 @@
             android:paddingRight="@dimen/spacing_normal_16"
             android:layout_marginTop="@dimen/spacing_small_8"
             android:layout_marginBottom="@dimen/spacing_small_8"
+            android:background="@android:color/transparent"
             android:visibility="gone">
 
         </com.google.android.material.chip.ChipGroup>

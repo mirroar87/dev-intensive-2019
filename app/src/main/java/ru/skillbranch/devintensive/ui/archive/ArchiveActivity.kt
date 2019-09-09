@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.ui.archive
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,9 +30,20 @@ class ArchiveActivity: AppCompatActivity() {
         initViewModel()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item?.itemId == android.R.id.home){
+            finish()
+            overridePendingTransition(R.anim.idle, R.anim.bottom_down)
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Архив чатов"
     }
 
     private fun initViews() {
@@ -42,9 +54,6 @@ class ArchiveActivity: AppCompatActivity() {
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {
             val id = it.id
             viewModel.restoreFromArchive(id)
-//            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
-//                .setAction(R.string.cancel) { viewModel.restoreFromArchive(id) }
-//                .show()
 
         }
         val touchHelper = ItemTouchHelper(touchCallback)
@@ -60,5 +69,10 @@ class ArchiveActivity: AppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(ArchiveViewModel::class.java)
         viewModel.getChatData().observe(this, Observer { chatAdapter.updateData(it) })
+        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+    }
+
+    private fun updateTheme(mode: Int) {
+        delegate.setLocalNightMode(mode)
     }
 }

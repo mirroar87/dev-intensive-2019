@@ -7,16 +7,20 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_group.*
+import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
+import ru.skillbranch.devintensive.repositories.PreferencesRepository
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
 import ru.skillbranch.devintensive.viewmodels.GroupViewModel
 
@@ -66,6 +70,7 @@ class GroupActivity : AppCompatActivity() {
     private fun initToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Создание группы"
     }
 
     private fun initViews() {
@@ -91,6 +96,11 @@ class GroupActivity : AppCompatActivity() {
             updateChips(it)
             toggleFab(it.size>1)
         })
+        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+    }
+
+    private fun updateTheme(mode: Int) {
+        delegate.setLocalNightMode(mode)
     }
 
     private fun toggleFab(isShow: Boolean) {
@@ -105,9 +115,15 @@ class GroupActivity : AppCompatActivity() {
             isCloseIconVisible = true
             tag = user.id
             isClickable = true
-            closeIconTint = ColorStateList.valueOf(Color.WHITE)
-            chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
+            if (PreferencesRepository.getAppTheme() == AppCompatDelegate.MODE_NIGHT_NO){
+                closeIconTint = ColorStateList.valueOf(Color.WHITE)
+                chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
+            } else {
+                closeIconTint = ColorStateList.valueOf(getColor(R.color.color_gray))
+                chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_item_background_night))
+            }
             setTextColor(Color.WHITE)
+
         }
         chip.setOnCloseIconClickListener { viewModel.handleRemoveChip(it.tag.toString()) }
         chip_group.addView(chip)

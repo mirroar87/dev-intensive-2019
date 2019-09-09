@@ -11,6 +11,18 @@
         <item name="colorAccentedSurface">@color/color_primary_light</item>
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
+        <item name="colorCounter">@color/color_counter</item>
+        <item name="colorItemBackground">@android:color/white</item>
+        <item name="colorPrimaryText">@color/color_primary</item>
+        <item name="colorSecondaryText">@color/color_gray_dark</item>
+        <item name="colorIndicator">@color/color_green</item>
+        <item name="colorArchiveIcon">@color/color_gray</item>
+        <item name="colorDoneIcon">@color/color_primary</item>
+        <item name="colorUsersBackground">@android:color/white</item>
+        <item name="colorSnackBarBackground">@color/color_primary</item>
+
+
+
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
