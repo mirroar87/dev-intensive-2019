@@ -27,5 +27,4 @@
     <attr name="colorDoneIcon" format="reference"/>
     <attr name="colorSnackBarBackground" format="reference"/>
 
-    <attr name="colorFAB" format="reference"/>
 </resources>

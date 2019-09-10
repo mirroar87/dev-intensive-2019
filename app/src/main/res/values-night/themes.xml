@@ -21,8 +21,6 @@
         <item name="colorUsersBackground">@color/color_background_night</item>
         <item name="colorSnackBarBackground">@android:color/white</item>
 
-        <item name="colorFAB">@color/color_accent</item>
-
 
     </style>
 </resources>
