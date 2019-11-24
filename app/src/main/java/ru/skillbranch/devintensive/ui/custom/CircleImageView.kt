@@ -139,26 +139,25 @@ open class CircleImageView @JvmOverloads constructor(
 //                initialsSB.append(lastName[0].toUpperCase())
 //            }
 
-            val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
+        val bitmap = createBitmap (1000, 1000, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
 
-            val value = TypedValue()
-            context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
 
-            val textScaleValue = bitmap.width/200f
+        val textScaleValue = bitmap.width/200f
 
-            val paintText = Paint().apply {
-                color = Color.WHITE
-                textAlign = Paint.Align.CENTER
-                textSize = 80*textScaleValue
-            }
+        val paintText = Paint().apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = 80*textScaleValue
+        }
 
-            canvas.drawColor(value.data)
-            canvas.drawText(initials, bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
+        canvas.drawColor(value.data)
+        canvas.drawText(initials, bitmap.width/2f, (bitmap.height + 68*textScaleValue)/2f, paintText)
 
-            setImageBitmap(bitmap)
+        setImageBitmap(bitmap)
 //        }
         invalidate()
     }
 }
-
