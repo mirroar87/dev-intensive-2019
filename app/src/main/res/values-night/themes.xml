@@ -20,6 +20,7 @@
         <item name="colorDoneIcon">@color/color_accent_night</item>
         <item name="colorUsersBackground">@color/color_background_night</item>
         <item name="colorSnackBarBackground">@android:color/white</item>
+        <item name="colorFloatingActionButton">@color/color_accent_night</item>
 
 
     </style>

@@ -58,14 +58,14 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return if (item?.itemId == android.R.id.home){
-//            viewModel.switchTheme()
-//            true
-//        } else {
-//            super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item?.itemId == android.R.id.home){
+            viewModel.switchTheme()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)

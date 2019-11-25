@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/spacing_normal_16"
-        android:backgroundTint="?attr/colorAccent"
+        android:backgroundTint="?attr/colorFloatingActionButton"
         app:srcCompat="@drawable/ic_add_black_24dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
