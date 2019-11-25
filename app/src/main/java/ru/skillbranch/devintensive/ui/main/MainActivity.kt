@@ -116,10 +116,10 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getChatData().observe(this, Observer { chatAdapter.updateData(it) })
-        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+//        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
     }
 
-    private fun updateTheme(mode: Int) {
-        delegate.setLocalNightMode(mode)
-    }
+//    private fun updateTheme(mode: Int) {
+//        delegate.setLocalNightMode(mode)
+//    }
 }

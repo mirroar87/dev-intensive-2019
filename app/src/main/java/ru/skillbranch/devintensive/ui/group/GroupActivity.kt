@@ -96,12 +96,12 @@ class GroupActivity : AppCompatActivity() {
             updateChips(it)
             toggleFab(it.size>1)
         })
-        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
+//        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
     }
 
-    private fun updateTheme(mode: Int) {
-        delegate.setLocalNightMode(mode)
-    }
+//    private fun updateTheme(mode: Int) {
+//        delegate.setLocalNightMode(mode)
+//    }
 
     private fun toggleFab(isShow: Boolean) {
         if(isShow) fab.show()

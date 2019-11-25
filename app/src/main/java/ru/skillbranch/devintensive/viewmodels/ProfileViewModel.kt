@@ -15,7 +15,7 @@ class ProfileViewModel : BaseViewModel() {
 
     init {
         Log.d("M_ProfileViewModel","init view model")
-        profileData.value = repository.getProfile()
+//        profileData.value = repository.getProfile()
     }
 
     override fun onCleared() {
